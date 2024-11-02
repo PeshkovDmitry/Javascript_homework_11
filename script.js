@@ -8,10 +8,11 @@ function createProductCard(cardData) {
 
     const imageEl = document.createElement('img');
     imageEl.src = cardData.image;
+    imageEl.width = 200;
     liEl.appendChild(imageEl);
 
     const textEl = document.createElement('p');
-    textEl.textContent = cardData.about;
+    textEl.textContent = cardData.description;
     liEl.appendChild(textEl);
 
     const priceEl = document.createElement('p');
@@ -20,12 +21,33 @@ function createProductCard(cardData) {
 
     const buttonEl = document.createElement('button');
     buttonEl.textContent = 'Add to card';
+    buttonEl.addEventListener('click', () => {
+        
+        const blockEl = document.createElement('div');
+
+        const textEl = document.createElement('p');
+        textEl.textContent = cardData.description;
+
+        const removeButtonEl = document.createElement('button');
+        removeButtonEl.textContent = 'Удалить';
+        removeButtonEl.addEventListener('click', () => blockEl.remove());
+
+        blockEl.appendChild(textEl);
+        blockEl.appendChild(removeButtonEl);
+        
+        const cardEl = document.querySelector('.card');
+        cardEl.appendChild(blockEl);
+        
+    });
+
     liEl.appendChild(buttonEl);
-    
+
     return liEl;
 }
 
 const ulEl = document.querySelector('ul');
+
 dataJSON.forEach(cardData => {
     ulEl.appendChild(createProductCard(cardData));
 });
+
